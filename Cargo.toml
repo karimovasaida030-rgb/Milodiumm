@@ -1,0 +1,39 @@
+[package]
+name = "rayzen-bot"
+version = "0.1.0"
+edition = "2021"
+default-run = "rayzen-bot"
+# Teloxide → ICU → zerofrom-derive: нужен свежий rustc (на старых 1.70–1.75 падает сборка макросов).
+rust-version = "1.81"
+
+[[bin]]
+name = "rayzen-bot"
+path = "src/main.rs"
+
+
+[dependencies]
+urlencoding = "2.1"
+teloxide = { version = "0.12", default-features = false, features = ["macros", "rustls"] }
+tokio = { version = "1", features = ["full"] }
+reqwest = { version = "0.11", default-features = false, features = ["json", "multipart", "stream", "rustls-tls"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+dotenvy = "0.15"
+anyhow = "1"
+futures = "0.3"
+dashmap = "5.5"
+sysinfo = "0.30"
+chrono = "0.4"
+env_logger = "0.10"
+log = "0.4"
+pretty_env_logger = "0.5"
+rand = "0.8"
+grammers-client = { version = "0.7.0", features = ["html"] }
+grammers-session = "0.7.0"
+grammers-tl-types = "0.7.0"
+
+[profile.release]
+opt-level = 3
+lto = false
+codegen-units = 1
+strip = true
